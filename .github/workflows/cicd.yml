@@ -29,8 +29,8 @@ jobs:
       - name: Update Azure Web App container
         run: |
           az webapp config container set \
-            --name ml-cicd-demo-app \
-            --resource-group ml-cicd-demo \
+            --name ml-cicd-demo \
+            --resource-group CloudAI \
             --docker-custom-image-name ghcr.io/${{ secrets.GHCR_USERNAME }}/ml-app:${{ github.sha }} \
             --docker-registry-server-url https://ghcr.io \
             --docker-registry-server-user ${{ secrets.GHCR_USERNAME }} \
