@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/ml-cicd:latest .
+        run: docker build -t ghcr.io/mmaszka/ml-cicd:latest .
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/ml-cicd:latest
+        run: docker push ghcr.io/mmaszka/ml-cicd:latest
