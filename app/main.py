@@ -1,14 +1,23 @@
-import spacy
+from fastapi import FastAPI
+from pydantic import BaseModel
+from app.model import load_model, predict
 
-def load_model():
-    return spacy.load("en_core_web_sm")
+app = FastAPI()
 
-def predict(model, data):
-    text = data["text"]
-    doc = model(text)
+# Ładujemy model tylko raz przy starcie kontenera
+model = load_model()
 
-    return {
-        "tokens": [token.text for token in doc],
-        "pos": [token.pos_ for token in doc],
-        "entities": [(ent.text, ent.label_) for ent in doc.ents]
-    }
+class PredictRequest(BaseModel):
+    text: str
+
+@app.get("/")
+def root():
+    return {"status": "running", "model": "spacy-en_core_web_sm"}
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+@app.post("/predict")
+def predict_endpoint(req: PredictRequest):
+    return predict(model, req.dict())
