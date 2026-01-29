@@ -1,27 +1,13 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from app.model import load_model, predict
-from app.ai_integration import analyze_text
+from transformers import pipeline
 
-app = FastAPI()
+def load_model():
+    # Ładuje gotowy model HuggingFace
+    return pipeline("sentiment-analysis")
 
-# Ładowanie modelu przy starcie aplikacji
-model = load_model()
-
-# Schemat danych wejściowych
-class PredictRequest(BaseModel):
-    text: str
-
-@app.get("/")
-def root():
-    return {"status": "running"}
-
-@app.post("/predict")
-def predict_endpoint(req: PredictRequest):
-    # Zamieniamy dane na dict i przekazujemy do modelu
-    return predict(model, req.dict())
-
-
-@app.post("/ai")
-def ai_endpoint(text: str):
-    return analyze_text(text)
+def predict(model, data):
+    text = data["text"]
+    result = model(text)[0]
+    return {
+        "label": result["label"],
+        "score": float(result["score"])
+    }
