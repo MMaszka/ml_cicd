@@ -7,8 +7,9 @@ def predict(model, data):
     text = data["text"]
     doc = model(text)
 
-    return {
-        "tokens": [token.text for token in doc],
-        "pos": [token.pos_ for token in doc],
-        "entities": [(ent.text, ent.label_) for ent in doc.ents]
-    }
+    return "placeholder" 
+    #{
+    #    "tokens": [token.text for token in doc],
+    #    "pos": [token.pos_ for token in doc],
+    #    "entities": [(ent.text, ent.label_) for ent in doc.ents]
+    #}
