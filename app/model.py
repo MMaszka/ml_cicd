@@ -8,9 +8,10 @@ def predict(model, data):
     doc = model(text)
 
     return 
-    #{"placeholder"} 
+
     {
         "tokens": [token.text for token in doc],
         "pos": [token.pos_ for token in doc],
         "entities": [(ent.text, ent.label_) for ent in doc.ents]
     }
+    #{"placeholder"} 
