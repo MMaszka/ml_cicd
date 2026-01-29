@@ -37,3 +37,11 @@ jobs:
 
       - name: Push Docker image
         run: docker push ghcr.io/mmaszka/ml-cicd:latest
+
+      - name: Restart Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ml-cicd-demo
+          slot-name: production
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+              
