@@ -1,13 +1,14 @@
-from transformers import pipeline
+import spacy
 
 def load_model():
-    return pipeline("sentiment-analysis", framework="tf")
-
+    return spacy.load("en_core_web_sm")
 
 def predict(model, data):
     text = data["text"]
-    result = model(text)[0]
+    doc = model(text)
+
     return {
-        "label": result["label"],
-        "score": float(result["score"])
+        "tokens": [token.text for token in doc],
+        "pos": [token.pos_ for token in doc],
+        "entities": [(ent.text, ent.label_) for ent in doc.ents]
     }
