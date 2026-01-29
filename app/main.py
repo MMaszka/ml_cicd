@@ -1,8 +1,8 @@
 from transformers import pipeline
 
 def load_model():
-    # Ładuje gotowy model HuggingFace
-    return pipeline("sentiment-analysis")
+    return pipeline("sentiment-analysis", framework="tf")
+
 
 def predict(model, data):
     text = data["text"]
