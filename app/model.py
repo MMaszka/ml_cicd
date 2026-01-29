@@ -1,7 +1,12 @@
+from transformers import pipeline
+
 def load_model():
-    # tutaj możesz załadować swój model ML, np. pickle
-    return None
+    return pipeline("sentiment-analysis")
 
 def predict(model, data):
-    # logika predykcji Twojego modelu
-    return {"prediction": "placeholder"}
+    text = data["text"]
+    result = model(text)[0]
+    return {
+        "label": result["label"],
+        "score": float(result["score"])
+    }
