@@ -23,17 +23,3 @@ jobs:
 
       - name: Run tests
         run: pytest
-
-  deploy:
-    needs: tests
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ml-cicd-demo
-          images: ghcr.io/mmaszka/ml-cicd:latest
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
