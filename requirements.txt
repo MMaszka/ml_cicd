@@ -4,4 +4,6 @@ requests
 pytest
 transformers
 tensorflow-cpu
+spacy
+
 
